@@ -14,12 +14,6 @@ const formatNumber = (number, res) => {
       message: 'The number must not have "55" on start.',
     });
   }
-  // if dont start with 11
-  if (numberInString[0] !== '1' && numberInString[1] !== '1') {
-    return res.status(400).json({
-      message: 'The number must start with "11".',
-    });
-  }
 
   const formattedNumber = `55${number}@c.us`;
   return formattedNumber;

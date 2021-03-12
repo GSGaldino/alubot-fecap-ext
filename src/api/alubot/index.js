@@ -17,7 +17,7 @@ router.post('/say-hello', async (req, res) => {
     value,
     phone
   } = req.body;
-  const message = req.body.message || 'Teste de mensagem';
+  const message = `Olá, aqui é a Helena, a inteligência artificial da FECAP 😊\nEstou mandando essa mensagem porque você solicitou mais informações sobre um de nossos cursos;\nVocê ainda tem interesse em saber mais informações? Responda SIM para continuarmos o bate-papo.`;
   const connected = await activeClient.isConnected();
 
   if (!connected) return res.json(500).json({ message: 'The bot is not connected yet.' });
@@ -25,6 +25,7 @@ router.post('/say-hello', async (req, res) => {
 
   try {
     const formattedNumber = formatNumber(phone, res);
+    console.log(formattedNumber)
     activeClient
       .sendText(formattedNumber, message)
       .then((result) => res.json({
