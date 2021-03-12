@@ -7,8 +7,17 @@ let activeClient;
 bot.create({ headless: true, }).then((client) => activeClient = start(client));
 
 router.post('/say-hello', async (req, res) => {
-  const { fullname, phone, email, course_code } = req.query;
-  const message = req.query.message || 'Teste de mensagem';
+  const {
+    id,
+    name,
+    curso,
+    inicio,
+    carga_horaria,
+    site,
+    value,
+    phone
+  } = req.body;
+  const message = req.body.message || 'Teste de mensagem';
   const connected = await activeClient.isConnected();
 
   if (!connected) return res.json(500).json({ message: 'The bot is not connected yet.' });
@@ -18,8 +27,22 @@ router.post('/say-hello', async (req, res) => {
     const formattedNumber = formatNumber(phone, res);
     activeClient
       .sendText(formattedNumber, message)
-      .then((result) => res.send(result))
-      .catch((error) => res.send(error));
+      .then((result) => res.json({
+        status: 'success',
+        data: {
+          phone: phone,
+          id: id || undefined,
+          name: name || undefined,
+          curso: curso || undefined,
+          inicio: inicio || undefined,
+          carga_horaria: carga_horaria || undefined,
+          site: site || undefined,
+          value: value || undefined,
+        }
+      }))
+      .catch((error) => res.status(500).json({
+        error: 'activeClient.sendText() -> Error sending message.'
+      }));
 
   } catch (error) {
     /* eslint-disable no-console */
