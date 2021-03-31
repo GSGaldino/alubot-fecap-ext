@@ -25,7 +25,7 @@ router.post('/say-hello', async (req, res) => {
 
   try {
     const formattedNumber = formatNumber(phone, res);
-    console.log(formattedNumber)
+    console.log(req.body)
     activeClient
       .sendText(formattedNumber, message)
       .then((result) => res.json({

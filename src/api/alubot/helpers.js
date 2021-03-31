@@ -1,4 +1,5 @@
 const database = require('./database');
+const stagesObject = require('./stagesObject');
 
 /**
  * Format the phone number to the venom-bot pattern "5511999999999@c.us"
@@ -26,7 +27,7 @@ const formatNumber = (number, res) => {
  */
 const _getStage = phone => {
   //if number already exists
-  if (database[phone]){
+  if (database[phone]) {
     return database[phone].stage;
   }
   //If it's sender's first message
@@ -35,7 +36,7 @@ const _getStage = phone => {
       stage: 0,
     }
     return database[phone].stage;
-  } 
+  }
 }
 
 /**
@@ -43,10 +44,18 @@ const _getStage = phone => {
  * @param {Object} client client returned by create method on venom-bot
  * @returns {Object} client to use globally on application routes
  */
- const start = client => {
+const start = client => {
   client.onMessage(message => {
-    const stage = _getStage(message.from).toString();
-    client.sendText(message.from, stage);
+    const response = stagesObject[_getStage(message.from)].obj.execute(
+      message.from,
+      message.body,
+      message.sender.pushname
+    );
+
+    for (let index = 0; index < response.length; index++) {
+      const element = response[index];
+      client.sendText(message.from, element);
+    }
   })
 
   return client;
