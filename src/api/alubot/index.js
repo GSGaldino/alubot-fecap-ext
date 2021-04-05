@@ -1,6 +1,9 @@
 const bot = require('venom-bot');
 const router = require('express').Router();
+const options = require('./options');
 const { start, formatNumber } = require('./helpers');
+
+const database = require('./database');
 
 // Set active client to global scope
 let activeClient;
@@ -17,7 +20,13 @@ router.post('/say-hello', async (req, res) => {
     value,
     phone
   } = req.body;
-  const message = `Olá, aqui é a Helena, a inteligência artificial da FECAP 😊\nEstou mandando essa mensagem porque você solicitou mais informações sobre um de nossos cursos;\nVocê ainda tem interesse em saber mais informações? Responda SIM para continuarmos o bate-papo.`;
+  let menu = '';
+
+  Object.keys(options).forEach(value => {
+    let element = options[value];
+    menu += `${value} - ${element.description}\n`
+  });
+  const message = `Olá ${name}, aqui é a Helena, a inteligência artificial da FECAP 😊\n\nEnvio essa mensagem porque você solicitou mais informações sobre o nosso curso de ${curso}\nQuais dos assuntos você gostaria de abordar?\n\n${menu}`;
   const connected = await activeClient.isConnected();
 
   if (!connected) return res.json(500).json({ message: 'The bot is not connected yet.' });
@@ -25,7 +34,18 @@ router.post('/say-hello', async (req, res) => {
 
   try {
     const formattedNumber = formatNumber(phone, res);
-    console.log(req.body)
+    if (!database[formattedNumber]) {
+      database[formattedNumber] = {
+        stage: 1,
+        name: name,
+        curso: curso,
+        inicio: inicio,
+        carga_horaria: carga_horaria,
+        site: site,
+        value: value
+      }
+    }
+
     activeClient
       .sendText(formattedNumber, message)
       .then((result) => res.json({

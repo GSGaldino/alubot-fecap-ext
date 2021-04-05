@@ -17,7 +17,7 @@ function execute(user, msg) {
   if (msg === "1" || msg === "SIM" || msg === "sim" || msg === "s" || msg === "S") {
     database[user].stage = 2;
     return [
-      `Muito legal que você queira saber mais, confira aqui algumas informações:\n*Seu curso de interesse:*\n*Modalidade:* Online\n*Início:* 18/01/2021\n*Carga horária:*\nAs aulas são gravadas, para que você consiga fazer os estudos no seu tempo!\nPara mais informações você pode acessar nosso site: *site*
+      `Muito legal que você queira saber mais, confira aqui algumas informações:\n*Seu curso de interesse:* ${database[user].curso}\n*Modalidade:* Online\n*Início:* ${database[user].inicio}\n*Carga horária:* ${database[user].carga_horaria}\nAs aulas são gravadas, para que você consiga fazer os estudos no seu tempo!\nPara mais informações você pode acessar nosso site: *${database[user].site}*
       `,
       `Está pront@ para seguir para a matrícula? Se sim, é só  responder com o número 1! Se quiser retornar ao menu anterior responda com o número 0`,
     ];;
@@ -26,7 +26,7 @@ function execute(user, msg) {
   if(msg === "2"){
     database[user].stage = 2;
     return [
-      `Okay. O curso está saindo por R$*valor*. Você pode pagar em até 6x no cartão de crédito ou no boleto à vista. Se quiser mais opções de pagamento basta entrar nesse link [link do e-commerce] e seguir as instruções.`,
+      `Okay. O curso está saindo por ${database[user].value}. Você pode pagar em até 6x no cartão de crédito ou no boleto à vista. Se quiser mais opções de pagamento basta entrar nesse link http://portal.fecap.br/framehtml/web/app/Edu/PortalProcessoSeletivo/?c=1&f=1&ps=23&ai=&#/es/inscricoeswizard/dados-basicos e seguir as instruções.`,
       `Está pront@ para seguir para a matrícula? Se sim, é só  responder com o número 1! Se quiser retornar ao menu anterior responda com o número 0`,
     ]
   }
@@ -47,10 +47,10 @@ function execute(user, msg) {
   }
 
   if (msg === "informacoes" || msg === "Informacoes" || msg === "informações" || msg === "Informações") {
-    return ["Para mais informações você pode acessar nosso site https://gestaopublica.fecap.br !"];
+    return [`Para mais informações você pode acessar nosso site ${database[user].site}`];
   }
 
-  if (!options.menu[msg]) {
+  if (!options[msg]) {
     return [
       "Desculpe, não estava esperando essa mensagem",
       "Tente novamente com alguma opção válida =)",
