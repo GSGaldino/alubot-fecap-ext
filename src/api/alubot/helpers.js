@@ -46,7 +46,8 @@ const _getStage = phone => {
  */
 const start = client => {
   client.onMessage(message => {
-    const response = stagesObject[_getStage(message.from)].obj.execute(
+    const stage = _getStage(message.from);
+    const response = stagesObject[stage].obj.execute(
       message.from,
       message.body,
       message.sender.pushname

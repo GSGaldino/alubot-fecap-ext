@@ -20,7 +20,7 @@ function execute(user, msg) {
       `Muito legal que você queira saber mais, confira aqui algumas informações:\n*Seu curso de interesse:* ${database[user].curso}\n*Modalidade:* Online\n*Início:* ${database[user].inicio}\n*Carga horária:* ${database[user].carga_horaria}\nAs aulas são gravadas, para que você consiga fazer os estudos no seu tempo!\nPara mais informações você pode acessar nosso site: *${database[user].site}*
       `,
       `Está pront@ para seguir para a matrícula? Se sim, é só  responder com o número 1! Se quiser retornar ao menu anterior responda com o número 0`,
-    ];;
+    ];
   }
 
   if(msg === "2"){
