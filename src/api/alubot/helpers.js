@@ -55,7 +55,11 @@ const start = client => {
 
     for (let index = 0; index < response.length; index++) {
       const element = response[index];
-      client.sendText(message.from, element);
+      try {
+        client.sendText(message.from, element);
+      } catch (error) {
+        return console.log(error)
+      }
     }
   })
 
