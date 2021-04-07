@@ -34,16 +34,15 @@ router.post('/say-hello', async (req, res) => {
 
   try {
     const formattedNumber = formatNumber(phone, res);
-    if (!database[formattedNumber]) {
-      database[formattedNumber] = {
-        stage: 1,
-        name: name,
-        curso: curso,
-        inicio: inicio,
-        carga_horaria: carga_horaria,
-        site: site,
-        value: value
-      }
+
+    database[formattedNumber] = {
+      stage: 1,
+      name: name,
+      curso: curso,
+      inicio: inicio,
+      carga_horaria: carga_horaria,
+      site: site,
+      value: value
     }
 
     activeClient

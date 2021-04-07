@@ -22,7 +22,7 @@ function execute(user, msg, contact) {
   }
 
   //nao
-  else if(msg === "NAO" || msg === "nao" || msg === "Nao" || msg === "n" || msg === "N" || msg === "Na" || msg === "NÃO" || msg === "não" || msg === "Não" || msg === "ñ" || msg === "Ñ" || msg === "Nã"){
+  if(msg === "NAO" || msg === "nao" || msg === "Nao" || msg === "n" || msg === "N" || msg === "Na" || msg === "NÃO" || msg === "não" || msg === "Não" || msg === "ñ" || msg === "Ñ" || msg === "Nã"){
 
     return [
       `Que pena :( De qualquer forma estou aqui se precisar de algo!`,
@@ -31,10 +31,10 @@ function execute(user, msg, contact) {
 
 
   //...
-  database[user].stage = 0;
+  database[user].stage = 1;
 
   return [
-    `Olá ${contact} Eu sou Helena da FECAP. Estou mandando essa mensagem porque você pediu mais informações sobre o curso de Extensão em Contabilidade Pública
+    `Olá ${contact} Eu sou Helena da FECAP. 
     Meu papel é te ajudar! Temos bastante interesse em ter você como aluno da FECAP! 
     Qual dos assuntos você gostaria de abordar? 
     `,
