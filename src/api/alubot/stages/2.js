@@ -1,7 +1,6 @@
-const database = require('../database');
 const options = require('../options');
 
-function execute(user, msg) {
+function execute(user, msg, contact, client) {
   let menu = "";
 
   Object.keys(options).forEach((value) => {
@@ -10,14 +9,14 @@ function execute(user, msg) {
   });
 
   if (msg === "0") {
-    database[user].stage = 1;
+    client.stage = 1;
     return [menu];
   }
 
-
   if (msg === "1") {
-    database[user].stage = 3;
-    return [`Muito legal que você queira saber mais, para realizar a sua matrícula não é necessário a entrega de documentos, basta acessar o e-commerce da FECAP e finalizar o pedido!\nÉ só acessar este link: http://portal.fecap.br/framehtml/web/app/Edu/PortalProcessoSeletivo/?c=1&f=1&ps=23&ai=&#/es/inscricoeswizard/dados-basicos`];
+    client.stage = 0;
+    return [`Ficamos muito felizes com seu interesse em fazer parte da FECAP!\nBasta acessar o e-commerce da FECAP e finalizar o pedido!\nEste é o link: http://portal.fecap.br/framehtml/web/app/Edu/PortalProcessoSeletivo/?c=1&f=1&ps=23&ai=&#/es/inscricoeswizard/dados-basicos\nEntão você precisa selecionar o seu curso de preferência e preencher os dados.\nSe alguma dúvida surgir no processo, pode me chamar!\nAo final, é só nos mandar o comprovante que encerraremos o atendimento.
+    `];
   }
 
   return [

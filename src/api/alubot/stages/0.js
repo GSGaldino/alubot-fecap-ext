@@ -1,7 +1,6 @@
 const options = require('../options');
-const database = require('../database');
 
-function execute(user, msg, contact) {
+function execute(user, msg, contact, client) {
   let menu = '';
 
   Object.keys(options).forEach(value => {
@@ -11,7 +10,7 @@ function execute(user, msg, contact) {
 
   //sim
   if(msg === "SIM" || msg === "sim" || msg === "Sim" || msg === "s" || msg === "S" || msg === "Si"){
-    database[user].stage = 1;
+    client.stage = 1;
 
     return [
       `Legal! Temos bastante interesse em ter você como aluno da FECAP! 
@@ -29,17 +28,7 @@ function execute(user, msg, contact) {
     ]
   }
 
-
-  //...
-  database[user].stage = 1;
-
-  return [
-    `Olá ${contact} Eu sou Helena da FECAP. 
-    Meu papel é te ajudar! Temos bastante interesse em ter você como aluno da FECAP! 
-    Qual dos assuntos você gostaria de abordar? 
-    `,
-    menu,
-  ];
+  return [];
 }
 
 module.exports = {execute};
